@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-11-02T09:00:00Z",
+  "flags": {
+    "ai_chat": {
+      "control": "user",
+      "available": true,
+      "defaultEnabled": false,
+      "title": "AI-Chatt",
+      "subtitle": "Chatta med vår AI assistent i appen",
+      "minAppVersion": "1.5.0"
+    }
+  }
+}
