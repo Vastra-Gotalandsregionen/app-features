@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Vastra-Gotalandsregionen/app-features/schema/feature_flags.schema.json",
+  "title": "App feature flags",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "updatedAt", "flags"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "flags": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": { "$ref": "#/$defs/flag" }
+    }
+  },
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "flag": {
+      "oneOf": [
+        { "$ref": "#/$defs/userFlag" },
+        { "$ref": "#/$defs/remoteFlag" }
+      ]
+    },
+    "userFlag": {
+      "description": "Shown in Settings; the user toggles it. 'available' lets you hide it remotely.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["control", "available", "defaultEnabled", "title", "minAppVersion"],
+      "properties": {
+        "control": { "const": "user" },
+        "available": { "type": "boolean" },
+        "defaultEnabled": { "type": "boolean" },
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string" },
+        "minAppVersion": { "$ref": "#/$defs/version" }
+      }
+    },
+    "remoteFlag": {
+      "description": "Never shown to the user; controlled only via 'enabled'.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["control", "enabled", "minAppVersion"],
+      "properties": {
+        "control": { "const": "remote" },
+        "enabled": { "type": "boolean" },
+        "minAppVersion": { "$ref": "#/$defs/version" }
+      }
+    }
+  }
+}
