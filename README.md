@@ -40,6 +40,10 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
       "defaultEnabled": false,
       "title": "AI-Chatt",
       "subtitle": "Chatta med vår AI-assistent i appen",
+      "icon": {
+        "ios": "bubble.left.and.bubble.right",
+        "android": "chat"
+      },
       "minAppVersion": "1.5.0"
     },
     "new_onboarding": {
@@ -51,7 +55,7 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
 }
 ```
 
-- `user`: shown in Settings and toggled by the user. `available: false` hides it.
+- `user`: shown in Settings and toggled by the user. `available: false` hides it. `icon` gives the icon name per platform (`ios`, `android`) used when listing it.
 - `remote`: never shown to the user; switched on/off with `enabled`.
 
 Flag keys are `snake_case`. Bump `updatedAt` on every change.

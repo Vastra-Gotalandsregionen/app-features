@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-02T08:56:04Z",
+  "updatedAt": "2026-11-04T00:00:00Z",
   "flags": {
     "ai_chat": {
       "control": "user",
@@ -8,6 +8,10 @@
       "defaultEnabled": false,
       "title": "AI-Chatt",
       "subtitle": "Chatta med vår AI-assistent i appen",
+      "icon": {
+        "ios": "bubble.left.and.bubble.right",
+        "android": "chat"
+      },
       "minAppVersion": "1.5.0"
     }
   }

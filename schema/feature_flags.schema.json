@@ -19,6 +19,16 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
+    "icon": {
+      "description": "Icon shown when the flag is listed. Platform-specific icon names (e.g. SF Symbol on iOS, Material icon on Android).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ios", "android"],
+      "properties": {
+        "ios": { "type": "string", "minLength": 1 },
+        "android": { "type": "string", "minLength": 1 }
+      }
+    },
     "flag": {
       "oneOf": [
         { "$ref": "#/$defs/userFlag" },
@@ -29,13 +39,14 @@
       "description": "Shown in Settings; the user toggles it. 'available' lets you hide it remotely.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["control", "available", "defaultEnabled", "title", "minAppVersion"],
+      "required": ["control", "available", "defaultEnabled", "title", "icon", "minAppVersion"],
       "properties": {
         "control": { "const": "user" },
         "available": { "type": "boolean" },
         "defaultEnabled": { "type": "boolean" },
         "title": { "type": "string", "minLength": 1 },
         "subtitle": { "type": "string" },
+        "icon": { "$ref": "#/$defs/icon" },
         "minAppVersion": { "$ref": "#/$defs/version" }
       }
     },
