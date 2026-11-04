@@ -32,18 +32,23 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
 ```json
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-02T09:00:00Z",
+  "updatedAt": "2026-11-04T09:00:00Z",
+  "programme": {
+    "title": "VGR testar",
+    "intro": "Här kan du prova nya funktioner som vi utvecklar."
+  },
   "flags": {
     "ai_chat": {
       "control": "user",
-      "available": true,
+      "status": "active",
       "defaultEnabled": false,
       "title": "AI-Chatt",
       "subtitle": "Chatta med vår AI-assistent i appen",
-      "icon": {
-        "ios": "bubble.left.and.bubble.right",
-        "android": "chat"
-      },
+      "icon": { "ios": "bubble.left.and.bubble.right", "android": "chat" },
+      "version": "1.0",
+      "sortOrder": 0,
+      "description": "Första stycket.\n\nAndra stycket.",
+      "acknowledgement": "Jag förstår att AI-assistenten kan ge felaktiga svar.",
       "minAppVersion": "1.5.0"
     },
     "new_onboarding": {
@@ -55,8 +60,16 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
 }
 ```
 
-- `user`: shown in Settings and toggled by the user. `available: false` hides it. `icon` gives the icon name per platform (`ios`, `android`) used when listing it.
-- `remote`: never shown to the user; switched on/off with `enabled`.
+- `programme` (optional): `title` and `intro` for the "VGR testar" page.
+- `user` flags are tests listed under "VGR testar", each with a list row and a detail page. The user toggles them.
+  - Required: `control`, `status`, `defaultEnabled`, `title`, `minAppVersion`.
+  - `status`: `active` (ongoing), `ended` (still shown, always off), `hidden` (not shown).
+  - `icon` (optional): `ios` is an SF Symbol name, `android` an icon from Android's built-in icon library. The app falls back to a default icon.
+  - `version` (optional): the test's own version label, e.g. `"1.0"`. Not the app version.
+  - `sortOrder` (optional): integer >= 0; lower comes first.
+  - `description` (optional): plain text; a blank line (`\n\n`) starts a new paragraph. No markdown.
+  - `acknowledgement` (optional): text the user must confirm the first time they switch the test on.
+- `remote` flags are never shown to the user; switched on/off with `enabled`.
 
 Flag keys are `snake_case`. Bump `updatedAt` on every change.
 

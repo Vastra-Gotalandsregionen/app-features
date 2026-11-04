@@ -8,6 +8,7 @@
   "properties": {
     "schemaVersion": { "const": 1 },
     "updatedAt": { "type": "string", "format": "date-time" },
+    "programme": { "$ref": "#/$defs/programme" },
     "flags": {
       "type": "object",
       "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
@@ -19,14 +20,24 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
+    "programme": {
+      "description": "Heading and intro text for the 'VGR testar' page that lists the user flags.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "intro"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "intro": { "type": "string", "minLength": 1 }
+      }
+    },
     "icon": {
-      "description": "Icon shown when the flag is listed. Platform-specific icon names (e.g. SF Symbol on iOS, Material icon on Android).",
+      "description": "Icon shown on the test's list row. If omitted, the app shows a default icon.",
       "type": "object",
       "additionalProperties": false,
       "required": ["ios", "android"],
       "properties": {
-        "ios": { "type": "string", "minLength": 1 },
-        "android": { "type": "string", "minLength": 1 }
+        "ios": { "description": "SF Symbol name (systemImage).", "type": "string", "minLength": 1 },
+        "android": { "description": "Name of an icon from Android's built-in icon library.", "type": "string", "minLength": 1 }
       }
     },
     "flag": {
@@ -36,17 +47,39 @@
       ]
     },
     "userFlag": {
-      "description": "Shown in Settings; the user toggles it. 'available' lets you hide it remotely.",
+      "description": "A test listed under 'VGR testar', with a list row and a simple detail page. The user toggles it on or off.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["control", "available", "defaultEnabled", "title", "icon", "minAppVersion"],
+      "required": ["control", "status", "defaultEnabled", "title", "minAppVersion"],
       "properties": {
         "control": { "const": "user" },
-        "available": { "type": "boolean" },
+        "status": {
+          "description": "active: ongoing test. ended: finished test that is still shown but always off. hidden: not shown at all.",
+          "enum": ["active", "ended", "hidden"]
+        },
         "defaultEnabled": { "type": "boolean" },
         "title": { "type": "string", "minLength": 1 },
         "subtitle": { "type": "string" },
         "icon": { "$ref": "#/$defs/icon" },
+        "version": {
+          "description": "The test's own version, shown as a label (e.g. \"1.0\", \"2.0\"). Not the app version.",
+          "type": "string",
+          "minLength": 1
+        },
+        "sortOrder": {
+          "description": "Position in the list; lower comes first.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "description": "Plain text for the detail page. A blank line (\\n\\n) starts a new paragraph. No markdown.",
+          "type": "string"
+        },
+        "acknowledgement": {
+          "description": "Text the user must confirm the first time they switch the test on.",
+          "type": "string",
+          "minLength": 1
+        },
         "minAppVersion": { "$ref": "#/$defs/version" }
       }
     },

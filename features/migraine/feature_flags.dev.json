@@ -1,10 +1,14 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-11-04T00:00:00Z",
+  "programme": {
+    "title": "VGR testar",
+    "intro": "Här kan du prova nya funktioner som vi utvecklar. Funktionerna kan ändras eller tas bort."
+  },
   "flags": {
     "ai_chat": {
       "control": "user",
-      "available": true,
+      "status": "active",
       "defaultEnabled": false,
       "title": "AI-Chatt",
       "subtitle": "Chatta med vår AI-assistent i appen",
@@ -12,6 +16,10 @@
         "ios": "bubble.left.and.bubble.right",
         "android": "chat"
       },
+      "version": "1.0",
+      "sortOrder": 0,
+      "description": "Ställ frågor om migrän till vår AI-assistent direkt i appen.\n\nAssistenten ersätter inte kontakt med vården.",
+      "acknowledgement": "Jag förstår att AI-assistenten kan ge felaktiga svar och inte ersätter vården.",
       "minAppVersion": "1.5.0"
     }
   }
