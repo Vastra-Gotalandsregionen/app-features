@@ -20,6 +20,16 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
+    "minAppVersion": {
+      "description": "Lowest app version the flag applies to, per platform. Apps ignore flags whose version for their platform is higher than the running app version.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ios", "android"],
+      "properties": {
+        "ios": { "$ref": "#/$defs/version" },
+        "android": { "$ref": "#/$defs/version" }
+      }
+    },
     "programme": {
       "description": "Heading and intro text for the 'VGR testar' page that lists the user flags.",
       "type": "object",
@@ -80,7 +90,7 @@
           "type": "string",
           "minLength": 1
         },
-        "minAppVersion": { "$ref": "#/$defs/version" }
+        "minAppVersion": { "$ref": "#/$defs/minAppVersion" }
       }
     },
     "remoteFlag": {
@@ -91,7 +101,7 @@
       "properties": {
         "control": { "const": "remote" },
         "enabled": { "type": "boolean" },
-        "minAppVersion": { "$ref": "#/$defs/version" }
+        "minAppVersion": { "$ref": "#/$defs/minAppVersion" }
       }
     }
   }

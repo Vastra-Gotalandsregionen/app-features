@@ -25,7 +25,7 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
 - Changes go live a minute or so after merge to `main`.
 - Responses are cached for up to 10 minutes (`Cache-Control: max-age=600`); use the `ETag` / `If-None-Match` header for cheap refreshes.
 - Apps should keep the last good copy and fall back to built-in defaults if the fetch fails.
-- Ignore flags whose `minAppVersion` is higher than the running app version, and refuse files with an unknown `schemaVersion`.
+- Ignore flags whose `minAppVersion` for your platform is higher than the running app version, and refuse files with an unknown `schemaVersion`.
 
 ## Format
 
@@ -49,12 +49,12 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
       "sortOrder": 0,
       "description": "Första stycket.\n\nAndra stycket.",
       "acknowledgement": "Jag förstår att AI-assistenten kan ge felaktiga svar.",
-      "minAppVersion": "1.5.0"
+      "minAppVersion": { "ios": "1.5.0", "android": "2.3.0" }
     },
     "new_onboarding": {
       "control": "remote",
       "enabled": true,
-      "minAppVersion": "1.6.0"
+      "minAppVersion": { "ios": "1.6.0", "android": "2.4.0" }
     }
   }
 }
@@ -70,6 +70,7 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
   - `description` (optional): plain text; a blank line (`\n\n`) starts a new paragraph. No markdown.
   - `acknowledgement` (optional): text the user must confirm the first time they switch the test on.
 - `remote` flags are never shown to the user; switched on/off with `enabled`.
+- `minAppVersion` (both flag types): lowest app version the flag applies to, per platform, e.g. `{ "ios": "1.5.0", "android": "2.3.0" }`. Both keys are required; each app reads its own. Versions are `major.minor.patch`.
 
 Flag keys are `snake_case`. Bump `updatedAt` on every change.
 
