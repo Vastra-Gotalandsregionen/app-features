@@ -71,6 +71,11 @@ e.g. `https://vastra-gotalandsregionen.github.io/app-features/features/migraine/
   - `acknowledgement` (optional): text the user must confirm the first time they switch the test on.
 - `remote` flags are never shown to the user; switched on/off with `enabled`.
 - `minAppVersion` (both flag types): lowest app version the flag applies to, per platform, e.g. `{ "ios": "1.5.0", "android": "2.3.0" }`. Both keys are required; each app reads its own. Versions are `major.minor.patch`.
+  - The app compares against the version inside its build, not the version label in App Store Connect / Google Play. How each app numbers its builds is declared in `schema/app_versions.json`, and `make validate` checks every value against it:
+    - `date`: iOS production builds are versioned with the build date by Xcode Cloud (`yy.MM.dd`, e.g. `26.10.21`). Write a date: `"26.11.05"` means builds from 5 Nov 2026 onwards. A release number like `"1.9.4"` is rejected, since it would always pass.
+    - `fixed`: every build carries the same version (iOS dev builds). `minAppVersion` can't tell builds apart there, so use `"0.0.0"`; a value above the fixed version is rejected, since the flag would never show.
+    - `semver`: an ordinary increasing version.
+  - When a dev build's fixed version is bumped, or an app changes how it numbers builds, update `schema/app_versions.json` in the same change.
 
 Flag keys are `snake_case`. Bump `updatedAt` on every change.
 
