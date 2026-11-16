@@ -8,7 +8,7 @@ ifdef APP
 FILE := features/$(APP)/feature_flags.*.json
 endif
 
-.PHONY: help validate check-names doctor
+.PHONY: help validate check-names check-versions doctor
 .DEFAULT_GOAL := help
 
 help: ## List available commands
@@ -17,6 +17,10 @@ help: ## List available commands
 
 validate: check-names ## Validate all flag files (APP=<app> for one app, FILE=<path> for one file)
 	@$(AJV) validate --spec=draft2020 -c ajv-formats -s $(SCHEMA) -d "$(FILE)"
+	@node scripts/check-versions.mjs $(FILE)
+
+check-versions: ## Check minAppVersion values against each app's version scheme (schema/app_versions.json)
+	@node scripts/check-versions.mjs $(FILE)
 
 check-names: ## Check that files under features/ are named <app>/feature_flags.<dev|prod>.json
 	@bad=$$(find features -type f | grep -Ev '^features/[a-z0-9_-]+/feature_flags\.(dev|prod)\.json$$'); \

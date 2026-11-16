@@ -1,0 +1,29 @@
+{
+  "$comment": "How each app's builds are versioned, per platform and environment. scripts/check-versions.mjs checks every minAppVersion against this. Schemes: \"date\" = build date yy.MM.dd (Xcode Cloud sets it on production builds), \"fixed\" = every build carries the same version (give it in \"version\"), \"semver\" = an increasing major.minor.patch. A platform left out here is not checked.",
+  "apps": {
+    "migraine": {
+      "ios": {
+        "prod": { "scheme": "date" },
+        "dev": { "scheme": "fixed", "version": "1.8.1" }
+      }
+    },
+    "epilepsy": {
+      "ios": {
+        "prod": { "scheme": "date" },
+        "dev": { "scheme": "fixed", "version": "1.1.10" }
+      }
+    },
+    "dermatology": {
+      "ios": {
+        "prod": { "scheme": "date" },
+        "dev": { "scheme": "fixed", "version": "1.2.2" }
+      }
+    },
+    "antistress": {
+      "ios": {
+        "prod": { "scheme": "date" },
+        "dev": { "scheme": "fixed", "version": "2.0.0" }
+      }
+    }
+  }
+}
